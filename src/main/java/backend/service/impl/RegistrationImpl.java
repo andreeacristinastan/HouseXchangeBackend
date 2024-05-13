@@ -1,5 +1,6 @@
 package backend.service.impl;
 
+import backend.exceptions.BadRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +29,16 @@ public class RegistrationImpl {
         } catch (IllegalArgumentException exception) {
             throw new InvalidRoleException("Invalid role: " + userCreationDTO.getRole() + ". You can choose between " + Arrays.toString(Role.values()));
         }
+
+        if(userRepository.findByUsername(userCreationDTO.getUsername()).isPresent()) {
+            throw new BadRequestException("Username already exists");
+        }
+
+        if(userRepository.findByEmail(userCreationDTO.getEmail()).isPresent()) {
+            throw new BadRequestException("You already have an account with tis email");
+
+        }
+
 
         User user = UserMapper.mapToUser(userCreationDTO);
         user.setPassword(passwordEncoder.encode(userCreationDTO.getPassword()));
