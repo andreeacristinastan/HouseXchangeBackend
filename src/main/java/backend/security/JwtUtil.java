@@ -1,8 +1,11 @@
 package backend.security;
 
+import backend.repository.UserRepository;
+import backend.utils.LoggerHelper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import backend.entity.User;
@@ -14,8 +17,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@AllArgsConstructor
 public class JwtUtil implements Serializable {
     private final String SECRET_KEY = "secret";
+    private UserRepository userRepository;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -41,10 +46,12 @@ public class JwtUtil implements Serializable {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", ((User) userDetails).getId());
-        claims.put("role", ((User) userDetails).getRole());
+        LoggerHelper.LOGGER.info(userDetails.getUsername());
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+        claims.put("id", user.getId());
+        claims.put("role", user.getRole());
         claims.put("username", userDetails.getUsername());
-        claims.put("email", ((User) userDetails).getEmail());
+        claims.put("email", user.getEmail());
 
         return createToken(claims, userDetails.getUsername());
     }

@@ -18,6 +18,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import backend.filter.JwtRequestFilter;
 import backend.security.JwtUtil;
 import backend.service.impl.UserDetailsServiceImpl;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +31,18 @@ import backend.service.impl.UserDetailsServiceImpl;
 public class SecurityConfig {
     private UserDetailsServiceImpl authUserDetailsService;
     private JwtUtil jwtUtil;
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Replace with your allowed origins
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true); // This must be true if you're sending credentials like cookies or basic auth
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -40,15 +58,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.GET,"/api/register", "/api/login", "/api/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/register", "/api/login", "/api/users").permitAll()
                         .anyRequest().authenticated()
+
 //                        .anyRequest().permitAll()
                 )
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
-                .addFilterBefore(new JwtRequestFilter(authUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);;
+                .addFilterBefore(new JwtRequestFilter(authUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
