@@ -11,10 +11,12 @@ import backend.service.PropertyService;
 import backend.service.UserService;
 
 import java.util.List;
+//import org.springframework.mail.SimpleMailMessage;
 
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173", allowPrivateNetwork = "true", allowedHeaders = "*")
 public class UserController {
     private UserService userService;
     private PropertyService propertyService;
@@ -24,6 +26,28 @@ public class UserController {
 //    public ResponseEntity<UserDto> createUser(@RequestBody UserCreationDto userCreationDTO) {
 //        UserDto savedUser = userService.createUser(userCreationDTO);
 //        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+//    }
+
+//    @PostMapping("/{id}/reset-password")
+//    public ResponseEntity<?> resetPassword(@PathVariable String username) {
+//        // Find the user in your database
+//        User user = userRepository.findByUsername(username);
+//
+//        if (user == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        }
+//
+//        // Generate a reset link
+//        String resetLink = "http://localhost:3000/reset-password?token=" + user.getResetPasswordToken();
+//
+//        // Send the reset password email
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(user.getEmail());
+//        message.setSubject("Password Reset");
+//        message.setText("You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" + resetLink + "\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n");
+//        mailSender.send(message);
+//
+//        return ResponseEntity.ok("Reset password email sent");
 //    }
 
     //Get user REST API
