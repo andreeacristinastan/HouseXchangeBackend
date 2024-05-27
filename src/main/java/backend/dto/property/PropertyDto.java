@@ -25,6 +25,7 @@ public class PropertyDto {
     private Boolean allowedPet;
     private String accessibility;
     private Integer numberOfRooms;
+    private Integer price;
     private Long userId;
     private List<RoomInfoDto> rooms;
     private List<TripInfoPropertyDto> trips;

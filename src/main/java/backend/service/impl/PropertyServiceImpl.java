@@ -120,6 +120,7 @@ public class PropertyServiceImpl implements PropertyService {
         property.setNumberOfRooms(updatedProperty.getNumberOfRooms());
         property.setName(updatedProperty.getName());
         property.setCountry(updatedProperty.getCountry());
+        property.setPrice(updatedProperty.getPrice());
 
         Property updatesPropertyObj;
 
@@ -197,6 +198,7 @@ public class PropertyServiceImpl implements PropertyService {
         property.setNumberOfRooms(updatedProperty.getNumberOfRooms());
         property.setName(updatedProperty.getName());
         property.setCountry(updatedProperty.getCountry());
+        property.setPrice(updatedProperty.getPrice());
 
         Property updatedPropertyObj;
 

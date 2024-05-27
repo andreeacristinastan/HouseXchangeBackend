@@ -51,7 +51,12 @@ public class User implements UserDetails {
 
     @NonNull
     @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
+    private Integer phoneNumber;
+
+    @NonNull
+    @Column(name = "prefix_number", nullable = false)
+    private String prefixNumber;
+
 
     @NonNull
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

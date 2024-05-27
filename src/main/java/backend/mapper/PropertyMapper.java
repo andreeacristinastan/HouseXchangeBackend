@@ -38,6 +38,7 @@ public class PropertyMapper {
                 property.getAllowedPet(),
                 property.getAccessibility(),
                 property.getNumberOfRooms(),
+                property.getPrice(),
                 property.getUser().getId(),
                 property.getRooms().stream().map(r -> new RoomInfoDto(
                         r.getId()

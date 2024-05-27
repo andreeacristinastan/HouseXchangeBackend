@@ -10,8 +10,11 @@ import backend.security.AuthUtil;
 @Component
 public class CheckPermissionsHelper {
 
-    public void checkAuth(String email, AuthUtil authUtil) {
-        if (authUtil.isAuthenticated() == null || !authUtil.isAuthenticated().equals(email)) {
+    public void checkAuth(String username, AuthUtil authUtil) {
+        LoggerHelper.LOGGER.info(authUtil.isAuthenticated());
+
+
+        if (authUtil.isAuthenticated() == null || !authUtil.isAuthenticated().equals(username)) {
             throw new UnauthorizedException("You're unauthorized for this action'");
         }
     }

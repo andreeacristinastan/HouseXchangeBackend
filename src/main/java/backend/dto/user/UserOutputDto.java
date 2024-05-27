@@ -19,7 +19,8 @@ public class UserOutputDto {
     private String firstName;
     private String lastName;
     private String language;
-    private String phoneNumber;
+    private Integer phoneNumber;
+    private String prefixNumber;
     private List<PropertyInfoDto> properties;
     private List <TripInfoUserDto> tripInfoDto;
 

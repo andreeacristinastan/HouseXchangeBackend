@@ -25,6 +25,7 @@ public class UserMapper {
                 user.getLastName(),
                 user.getLanguage(),
                 user.getPhoneNumber(),
+                user.getPrefixNumber(),
                 user.getProperties(),
                 Optional.ofNullable(user.getTrips()).orElse(Collections.emptyList()).stream().map(t -> new TripInfoUserDto(
                         t.getId(),
@@ -51,6 +52,7 @@ public class UserMapper {
                 user.getLastName(),
                 user.getLanguage(),
                 user.getPhoneNumber(),
+                user.getPrefixNumber(),
                 user.getProperties().stream().map(p -> new PropertyInfoDto(
                         p.getId(),
                         p.getName()
@@ -78,6 +80,7 @@ public class UserMapper {
                 userDto.getLastName(),
                 userDto.getLanguage(),
                 userDto.getPhoneNumber(),
+                userDto.getPrefixNumber(),
                 new ArrayList<>()
         );
     }

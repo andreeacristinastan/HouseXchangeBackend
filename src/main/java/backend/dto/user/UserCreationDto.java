@@ -13,5 +13,6 @@ public class UserCreationDto {
     private String firstName;
     private String lastName;
     private String language;
-    private String phoneNumber;
+    private Integer phoneNumber;
+    private String prefixNumber;
 }

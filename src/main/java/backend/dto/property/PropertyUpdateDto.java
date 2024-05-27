@@ -14,4 +14,6 @@ public class PropertyUpdateDto {
     private Boolean allowedPet;
     private String accessibility;
     private Integer numberOfRooms;
+    private Integer price;
+
 }

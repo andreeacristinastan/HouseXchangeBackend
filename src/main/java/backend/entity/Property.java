@@ -48,6 +48,9 @@ public class Property {
     @Column(nullable = false)
     private Integer numberOfRooms = 0;
 
+    @Column(nullable = false)
+    private Integer price = 0;
+
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     @NonNull

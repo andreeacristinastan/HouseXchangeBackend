@@ -67,12 +67,12 @@ public class UserController {
     }
 
     // Update user REST API
-    @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
+    @PatchMapping("{id}")
+    public ResponseEntity<UserOutputDto> updateUser(@PathVariable("id") Long userId,
                                               @RequestBody UserUpdateDto userUpdateDto) {
-        UserDto userDto = userService.updateUser(userId, userUpdateDto);
+        UserOutputDto userOutputDto = userService.updateUser(userId, userUpdateDto);
 
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok(userOutputDto);
     }
 
     //Delete user REST API

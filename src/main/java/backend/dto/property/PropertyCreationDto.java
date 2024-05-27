@@ -13,5 +13,6 @@ public class PropertyCreationDto {
     private Integer distance;
     private Boolean allowedPet;
     private String accessibility;
+    private Integer price;
     private Long userId;
 }

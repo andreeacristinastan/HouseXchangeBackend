@@ -22,7 +22,8 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String language;
-    private String phoneNumber;
+    private Integer phoneNumber;
+    private String prefixNumber;
     private List<Property> properties;
     private List <TripInfoUserDto> tripInfoDto;
 

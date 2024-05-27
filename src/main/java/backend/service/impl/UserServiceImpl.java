@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long userId, UserUpdateDto updatedUser) {
+    public UserOutputDto updateUser(Long userId, UserUpdateDto updatedUser) {
 
         User user;
         try {
@@ -81,15 +81,30 @@ public class UserServiceImpl implements UserService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+        if(updatedUser.getEmail().length() != 0) {
+            user.setEmail(updatedUser.getEmail());
+        }
 
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setLanguage(updatedUser.getLanguage());
-        user.setPhoneNumber(updatedUser.getPhoneNumber());
-        user.setRole(updatedUser.getRole());
+        if(updatedUser.getFirstName().length() != 0) {
+            user.setFirstName(updatedUser.getFirstName());
+        }
+
+        if(updatedUser.getLastName().length() != 0) {
+            user.setLastName(updatedUser.getLastName());
+        }
+
+        if(updatedUser.getLanguage().length() != 0) {
+            user.setLanguage(updatedUser.getLanguage());
+        }
+
+        if(updatedUser.getPhoneNumber() != null) {
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+        }
+
+        if(updatedUser.getPrefixNumber() != null) {
+            user.setPrefixNumber(updatedUser.getPrefixNumber());
+        }
 
         User updatedUserObj;
         try {
@@ -97,7 +112,8 @@ public class UserServiceImpl implements UserService {
         } catch (DataAccessException exception) {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
-        return UserMapper.mapToUserDto(updatedUserObj);
+
+        return UserMapper.mapToUserOutputDto(updatedUserObj);
     }
 
     @Override

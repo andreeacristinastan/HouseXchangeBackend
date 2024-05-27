@@ -8,12 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserUpdateDto {
-    private String role;
+//    private String role;
     private String email;
-    private String password;
+//    private String password;
     private String firstName;
     private String lastName;
     private String language;
-    private String phoneNumber;
+    private Integer phoneNumber;
+    private String prefixNumber;
+
 
 }
