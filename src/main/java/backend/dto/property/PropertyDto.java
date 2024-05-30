@@ -1,5 +1,6 @@
 package backend.dto.property;
 
+import backend.dto.facility.FacilityDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,16 @@ public class PropertyDto {
     private String country;
     private String city;
     private String address;
-    private Integer distance;
-    private Boolean allowedPet;
-    private String accessibility;
-    private Integer numberOfRooms;
-    private Integer price;
+    private Long zipCode;
+    private String propertyDescription;
+    private String propertyType;
+    private Long numberOfBathrooms;
+    private Long numberOfRooms;
+    private Long price;
     private Long userId;
-    private List<RoomInfoDto> rooms;
+//    private List<RoomInfoDto> rooms;
     private List<TripInfoPropertyDto> trips;
     private MealInfoDto mealInfo;
     private AmenityInfoDto amenityInfo;
+    private FacilityDto facilityDto;
 }

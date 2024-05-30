@@ -60,15 +60,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET,"/api/register", "/api/login", "/api/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/register", "/api/login", "/api/users", "/api/properties/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/register", "/api/login", "/api/users").permitAll()
-                        .anyRequest().authenticated()
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                                .anyRequest().authenticated()
 
 //                        .anyRequest().permitAll()
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
                 .addFilterBefore(new JwtRequestFilter(authUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

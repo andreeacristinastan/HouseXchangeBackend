@@ -17,31 +17,41 @@ public class Amenity {
 
     @NonNull
     @Column(nullable = false)
-    private String gym;
+    private Boolean gym;
 
     @NonNull
     @Column(nullable = false)
-    private String swimmingPool;
+    private Boolean swimmingPool;
 
     @NonNull
     @Column(nullable = false)
-    private String garden;
+    private Boolean garden;
 
     @NonNull
     @Column(nullable = false)
-    private String parking;
+    private Boolean parking;
 
     @NonNull
     @Column(nullable = false)
-    private String wireless;
+    private Boolean wifi;
 
     @NonNull
     @Column(nullable = false)
-    private String bikes;
+    private Boolean bikes;
 
     @NonNull
     @Column(nullable = false)
-    private String kidsZone;
+    private Boolean kidsZone;
+
+    @NonNull
+    @Column(nullable = false)
+    private Boolean petsFriendly;
+
+    @NonNull
+    @Column(nullable = false)
+    private Boolean disabilitiesFriendly;
+
+
 
     @NonNull
     @OneToOne

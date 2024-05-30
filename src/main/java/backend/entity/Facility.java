@@ -16,13 +16,30 @@ public class Facility {
     private long id;
 
     @NonNull
-    @Column(name = "facilityName", nullable = false, unique = true)
-    private  String nameOfFacility;
+    @Column(name = "towel", nullable = false)
+    private  Boolean towel;
 
     @NonNull
-    @ManyToOne
-    @JoinColumn(name="room_id", nullable=false)
-    private Room room;
+    @Column(name = "balcony", nullable = false)
+    private  Boolean balcony;
+
+    @NonNull
+    @Column(name = "air_conditioning", nullable = false)
+    private  Boolean airConditioning;
+
+    @NonNull
+    @Column(name = "tv", nullable = false)
+    private  Boolean tv;
+
+    @NonNull
+    @OneToOne
+    @JoinColumn(name="property_id", nullable=false)
+    private Property property;
+
+//    @NonNull
+//    @ManyToOne
+//    @JoinColumn(name="room_id", nullable=false)
+//    private Room room;
 
 
 }

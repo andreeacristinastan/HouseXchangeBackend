@@ -5,6 +5,7 @@ import backend.dto.property.PropertyDto;
 import backend.dto.property.PropertyInfoDto;
 import backend.dto.room.RoomInfoDto;
 import backend.dto.trip.TripInfoPropertyDto;
+import backend.entity.Amenity;
 import backend.entity.Property;
 import backend.entity.User;
 
@@ -34,32 +35,33 @@ public class PropertyMapper {
                 property.getCountry(),
                 property.getCity(),
                 property.getAddress(),
-                property.getDistance(),
-                property.getAllowedPet(),
-                property.getAccessibility(),
+                property.getZipCode(),
+                property.getPropertyDescription(),
+                property.getPropertyType(),
+                property.getNumberOfBathrooms(),
                 property.getNumberOfRooms(),
                 property.getPrice(),
                 property.getUser().getId(),
-                property.getRooms().stream().map(r -> new RoomInfoDto(
-                        r.getId()
-                )).collect(Collectors.toList()),
                 tripInfoPropertyDtos,
                 Optional.ofNullable(property.getMeal()).map(MealMapper::mapToMealInfoDto).orElse(null),
-                Optional.ofNullable(property.getAmenity()).map(AmenityMapper::mapToAmenityInfoDto).orElse(null)
+                Optional.ofNullable(property.getAmenity()).map(AmenityMapper::mapToAmenityInfoDto).orElse(null),
+                Optional.ofNullable(property.getFacility()).map(FacilityMapper::mapToFacilityDto).orElse(null)
         );
     }
 
     public static Property mapToProperty(PropertyCreationDto propertyCreationDto, User user) {
         return new Property(
                 propertyCreationDto.getName(),
+                propertyCreationDto.getPropertyType(),
+                propertyCreationDto.getPropertyDescription(),
                 propertyCreationDto.getCountry(),
                 propertyCreationDto.getCity(),
+                propertyCreationDto.getZipCode(),
+                propertyCreationDto.getNumberOfBathrooms(),
                 propertyCreationDto.getAddress(),
-                propertyCreationDto.getDistance(),
-                propertyCreationDto.getAllowedPet(),
-                propertyCreationDto.getAccessibility(),
-                user,
-                new ArrayList<>()
+                propertyCreationDto.getNumberOfRooms(),
+                propertyCreationDto.getPrice(),
+                user//                new ArrayList<>()
                 );
     }
 

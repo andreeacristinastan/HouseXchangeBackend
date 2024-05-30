@@ -20,6 +20,8 @@ public class CheckPermissionsHelper {
     }
 
     public void checkUser(String role, AuthUtil authUtil) {
+        LoggerHelper.LOGGER.info(role);
+
         if (!authUtil.isAuthorized(role)) {
             throw new ForbiddenException("You're access is forbidden for this action");
         }

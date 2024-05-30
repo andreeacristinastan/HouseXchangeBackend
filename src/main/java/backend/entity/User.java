@@ -57,7 +57,6 @@ public class User implements UserDetails {
     @Column(name = "prefix_number", nullable = false)
     private String prefixNumber;
 
-
     @NonNull
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Property> properties;

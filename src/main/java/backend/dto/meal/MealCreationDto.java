@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MealCreationDto {
-    private String breakfast;
-    private String lunch;
-    private String dinner;
-    private Long propertyId;
+    private Boolean breakfast;
+    private Boolean lunch;
+    private Boolean dinner;
 }

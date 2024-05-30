@@ -12,8 +12,8 @@ import backend.dto.property.PropertyInfoDto;
 @Setter
 public class MealDto {
     private Long id;
-    private String breakfast;
-    private String lunch;
-    private String dinner;
+    private Boolean breakfast;
+    private Boolean lunch;
+    private Boolean dinner;
     private PropertyInfoDto propertyInfo;
 }

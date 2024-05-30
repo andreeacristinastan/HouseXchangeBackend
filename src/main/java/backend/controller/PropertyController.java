@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173", allowPrivateNetwork = "true", allowedHeaders = "*")
 public class PropertyController {
         private PropertyService propertyService;
 
@@ -59,7 +60,7 @@ public class PropertyController {
 //    }
 
     //Update properties by user REST API
-    @PutMapping("/users/{userId}/properties/{propertyId}")
+    @PatchMapping("/users/{userId}/properties/{propertyId}")
     public ResponseEntity<PropertyDto> updatePropertyByUserId(@PathVariable("userId") Long userId,
                                                                     @PathVariable("propertyId") Long propertyId,
                                                                     @RequestBody PropertyUpdateDto propertyUpdateDto) {

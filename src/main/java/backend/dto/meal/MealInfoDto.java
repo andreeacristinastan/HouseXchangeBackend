@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class MealInfoDto {
     private Long id;
-    private String breakfast;
-    private String lunch;
-    private String dinner;
+    private Boolean breakfast;
+    private Boolean lunch;
+    private Boolean dinner;
 }

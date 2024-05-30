@@ -1,5 +1,6 @@
 package backend.dto.facility;
 
+import backend.dto.property.PropertyInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,6 +8,10 @@ import lombok.Getter;
 @Getter
 public class FacilityDto {
     private long id;
-    private  String nameOfFacility;
-    private Long roomId;
+    private  Boolean towel;
+    private  Boolean balcony;
+    private  Boolean airConditioning;
+    private  Boolean tv;
+    private PropertyInfoDto propertyInfo;
+
 }

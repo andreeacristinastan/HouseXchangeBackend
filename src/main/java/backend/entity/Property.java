@@ -23,6 +23,14 @@ public class Property {
 
     @NonNull
     @Column(nullable = false)
+    private String propertyType;
+
+    @NonNull
+    @Column(nullable = false)
+    private String propertyDescription;
+
+    @NonNull
+    @Column(nullable = false)
     private String country;
 
     @NonNull
@@ -31,34 +39,32 @@ public class Property {
 
     @NonNull
     @Column(nullable = false)
+    private Long zipCode;
+
+    @NonNull
+    @Column(nullable = false)
+    private Long numberOfBathrooms;
+
+    @NonNull
+    @Column(nullable = false)
     private String address;
 
     @NonNull
     @Column(nullable = false)
-    private Integer distance;
+    private Long numberOfRooms;
 
     @NonNull
     @Column(nullable = false)
-    private Boolean allowedPet;
-
-    @NonNull
-    @Column(nullable = false)
-    private String accessibility;
-
-    @Column(nullable = false)
-    private Integer numberOfRooms = 0;
-
-    @Column(nullable = false)
-    private Integer price = 0;
+    private Long price;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     @NonNull
     private User user;
 
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
-    @NonNull
-    private List<Room> rooms;
+//    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @NonNull
+//    private List<Room> rooms;
 
 //    @OneToOne(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Trip trip;
@@ -71,6 +77,9 @@ public class Property {
 
     @OneToOne(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private Amenity amenity;
+
+    @OneToOne(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Facility facility;
 
 
 

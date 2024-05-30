@@ -14,9 +14,11 @@ public class AmenityMapper {
                 amenity.getSwimmingPool(),
                 amenity.getGarden(),
                 amenity.getParking(),
-                amenity.getWireless(),
+                amenity.getWifi(),
                 amenity.getBikes(),
-                amenity.getKidsZone()
+                amenity.getKidsZone(),
+                amenity.getPetsFriendly(),
+                amenity.getDisabilitiesFriendly()
         );
     }
 
@@ -26,9 +28,11 @@ public class AmenityMapper {
                 amenityCreationDto.getSwimmingPool(),
                 amenityCreationDto.getGarden(),
                 amenityCreationDto.getParking(),
-                amenityCreationDto.getWireless(),
+                amenityCreationDto.getWifi(),
                 amenityCreationDto.getBikes(),
                 amenityCreationDto.getKidsZone(),
+                amenityCreationDto.getPetsFriendly(),
+                amenityCreationDto.getDisabilitiesFriendly(),
                 property
         );
     }
@@ -40,9 +44,11 @@ public class AmenityMapper {
                 amenity.getSwimmingPool(),
                 amenity.getGarden(),
                 amenity.getParking(),
-                amenity.getWireless(),
+                amenity.getWifi(),
                 amenity.getBikes(),
                 amenity.getKidsZone(),
+                amenity.getPetsFriendly(),
+                amenity.getDisabilitiesFriendly(),
                 PropertyMapper.mapToPropertyInfoDto(amenity.getProperty())
         );
     }

@@ -7,11 +7,11 @@ import backend.dto.room.RoomDto;
 import java.util.List;
 
 public interface FacilityService {
-    RoomDto createFacility(Long propertyId, Long roomId, FacilityCreationDto facilityCreationDto);
+    FacilityDto createFacility(Long propertyId, FacilityCreationDto facilityCreationDto);
 
-    List<FacilityDto> getAllFacilities(Integer page, Integer size, Long propertyId, Long roomId);
+//    List<FacilityDto> getAllFacilities(Integer page, Integer size, Long propertyId);
 
-    void deleteFacility(Long propertyId, Long roomId, Long facilityId);
+    void deleteFacility(Long propertyId, Long facilityId);
 
-    FacilityDto getFacilityById(Long propertyId, Long roomId, Long facilityId);
+    FacilityDto getFacilityById(Long propertyId, Long facilityId);
 }

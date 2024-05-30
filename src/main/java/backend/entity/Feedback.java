@@ -1,6 +1,5 @@
 package backend.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,27 +9,30 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name="meal")
-public class Meal {
-
+@Table(name="feedback")
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NonNull
     @Column(nullable = false)
-    private Boolean breakfast;
+    private String feedback;
 
     @NonNull
     @Column(nullable = false)
-    private Boolean lunch;
+    private Boolean toTheProperty;
 
     @NonNull
     @Column(nullable = false)
-    private Boolean dinner;
+    private Boolean toTheApp;
 
     @NonNull
-    @OneToOne
-    @JoinColumn(name="property_id", nullable=false)
-    private Property property;
+    @Column(nullable = false)
+    private Boolean other;
+
+    @NonNull
+    @Column(nullable = false)
+    private Long userId;
+
 }

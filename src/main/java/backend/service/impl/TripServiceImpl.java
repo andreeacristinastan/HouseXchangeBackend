@@ -46,7 +46,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         if(tripCreationDto.getCheckInDate().isAfter(tripCreationDto.getCheckOutDate())) {
             throw new IllegalArgumentException("Check-in date should be before check-out date");

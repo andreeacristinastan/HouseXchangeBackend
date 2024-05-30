@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FacilityCreationDto {
-    private  String nameOfFacility;
+    private  Boolean towel;
+    private  Boolean balcony;
+    private  Boolean airConditioning;
+    private  Boolean tv;
+//    private Long propertyId;
+
 
 }

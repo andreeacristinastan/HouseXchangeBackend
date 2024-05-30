@@ -8,13 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AmenityCreationDto {
-    private String gym;
-    private String swimmingPool;
-    private String garden;
-    private String parking;
-    private String wireless;
-    private String bikes;
-    private String kidsZone;
-    private Long propertyId;
+    private Boolean gym;
+    private Boolean swimmingPool;
+    private Boolean garden;
+    private Boolean parking;
+    private Boolean wifi;
+    private Boolean bikes;
+    private Boolean kidsZone;
+    private Boolean petsFriendly;
+    private Boolean disabilitiesFriendly;
+//    private Long propertyId;
 
 }

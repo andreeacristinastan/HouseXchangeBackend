@@ -12,9 +12,9 @@ public interface PropertyService {
 
     PropertyDto getPropertyById(Long propertyId);
 
-    PropertyDto updateProperty(Long propertyId, PropertyUpdateDto updatedProperty);
+//    PropertyDto updateProperty(Long propertyId, PropertyUpdateDto updatedProperty);
 
-    void deleteProperty(Long propertyId);
+//    void deleteProperty(Long propertyId);
 
     PropertyDto updatePropertyByUserId(Long userId, Long propertyId, PropertyUpdateDto propertyUpdateDto);
 

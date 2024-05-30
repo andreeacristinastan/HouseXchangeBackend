@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MealUpdateDto {
-    private String breakfast;
-    private String lunch;
-    private String dinner;
+    private Boolean breakfast;
+    private Boolean lunch;
+    private Boolean dinner;
 }
