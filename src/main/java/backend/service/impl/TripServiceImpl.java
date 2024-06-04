@@ -1,5 +1,7 @@
 package backend.service.impl;
 
+import backend.utils.LoggerHelper;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ import backend.service.TripService;
 import backend.utils.CheckPermissionsHelper;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,7 +101,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
         Pageable pageable = PageRequest.of(page, size);
         Page<Trip> tripPage = tripRepository.findByUser(user, pageable);
 
@@ -116,7 +119,7 @@ public class TripServiceImpl implements TripService {
         } catch (DataAccessException exception) {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -144,7 +147,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -155,7 +158,7 @@ public class TripServiceImpl implements TripService {
         }
 
         if (LocalDate.now().isAfter(trip.getCheckInDate())) {
-            throw new BadRequestException("Cannot delete a trip that has already started");
+            throw new BadRequestException("Cannot update a trip that has already started");
         }
 
         if(tripUpdateDto.getCheckInDate().isAfter(tripUpdateDto.getCheckOutDate())) {
@@ -163,11 +166,22 @@ public class TripServiceImpl implements TripService {
         }
 
         if(user.getTrips().stream().anyMatch(currTrip -> currTrip.getId() == tripId)) {
-            trip.setCheckInDate(tripUpdateDto.getCheckInDate());
-            trip.setCheckOutDate(tripUpdateDto.getCheckOutDate());
-            trip.setNumberOfPersons(tripUpdateDto.getNumberOfPersons());
-            trip.setMinRange(tripUpdateDto.getMinRange());
-            trip.setMaxRange(tripUpdateDto.getMaxRange());
+
+
+            if(tripUpdateDto.getNumberOfPersons() != 0) {
+                trip.setNumberOfPersons(tripUpdateDto.getNumberOfPersons());
+
+            }
+
+            if(tripUpdateDto.getMinRange() != 0) {
+                trip.setMinRange(tripUpdateDto.getMinRange());
+
+            }
+
+            if(tripUpdateDto.getMaxRange() != 0 ) {
+                trip.setMaxRange(tripUpdateDto.getMaxRange());
+
+            }
 
             Trip updatedObj;
             try {
@@ -192,7 +206,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
+        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -209,33 +223,29 @@ public class TripServiceImpl implements TripService {
 
         Property property = trip.getProperty();
 
-        if (LocalDate.now().isBefore(trip.getCheckInDate()) && user.getTrips().stream().anyMatch(currTrip -> currTrip.getId() == tripId)) {
-            user.getTrips().remove(trip);
-
-            try {
-                userRepository.save(user);
-            } catch (DataAccessException exception) {
-                throw new DatabaseException("Exception occurred while accessing the database", exception);
-            }
+        if (LocalDate.now().isBefore(trip.getCheckInDate())) {
+//                && user.getTrips().stream().anyMatch(currTrip -> currTrip.getId() == tripId)) {
 
             property.getTrips().stream()
                     .filter(t -> t.getId() == tripId)
                     .findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Trip not found"));
 
-            property.getTrips().remove(trip);
+                user.getTrips().remove(trip);
+                try {
+                    userRepository.save(user);
+                } catch (DataAccessException exception) {
+                    throw new DatabaseException("Exception occurred while accessing the database", exception);
+                }
 
-            try {
-                propertyRepository.save(property);
-            } catch (DataAccessException exception) {
-                throw new DatabaseException("Exception occurred while accessing the database", exception);
-            }
+                property.getTrips().remove(trip);
 
-            try {
-                tripRepository.delete(trip);
-            } catch (DataAccessException exception) {
-                throw new DatabaseException("Exception occurred while accessing the database", exception);
-            }
+                try {
+                    propertyRepository.save(property);
+                } catch (DataAccessException exception) {
+                    throw new DatabaseException("Exception occurred while accessing the database", exception);
+                }
+
         } else {
             throw new BadRequestException("Cannot delete a trip that has already started");
         }

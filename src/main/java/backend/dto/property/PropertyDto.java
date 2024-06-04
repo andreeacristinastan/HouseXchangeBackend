@@ -1,6 +1,8 @@
 package backend.dto.property;
 
 import backend.dto.facility.FacilityDto;
+import backend.dto.image.ImageDto;
+import backend.dto.image.ImageInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +31,8 @@ public class PropertyDto {
     private Long numberOfRooms;
     private Long price;
     private Long userId;
-//    private List<RoomInfoDto> rooms;
     private List<TripInfoPropertyDto> trips;
+    private List<ImageInfoDto> images;
     private MealInfoDto mealInfo;
     private AmenityInfoDto amenityInfo;
     private FacilityDto facilityDto;

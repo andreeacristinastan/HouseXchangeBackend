@@ -54,7 +54,7 @@ public class TripController {
     }
 
     // Update trip REST API
-    @PutMapping("/api/users/{user_id}/trips/{trip_id}")
+    @PatchMapping("/api/users/{user_id}/trips/{trip_id}")
     public ResponseEntity<TripDto> updateTrip(@PathVariable("user_id") Long userId,
                                               @PathVariable("trip_id") Long tripId,
                                               @RequestBody TripUpdateDto tripUpdateDto) {

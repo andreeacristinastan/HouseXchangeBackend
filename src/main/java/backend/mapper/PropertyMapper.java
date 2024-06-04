@@ -1,5 +1,6 @@
 package backend.mapper;
 
+import backend.dto.image.ImageInfoDto;
 import backend.dto.property.PropertyCreationDto;
 import backend.dto.property.PropertyDto;
 import backend.dto.property.PropertyInfoDto;
@@ -29,6 +30,15 @@ public class PropertyMapper {
             )).collect(Collectors.toList());
         }
 
+        List<ImageInfoDto> imageInfoDtos = null;
+        if(property.getImages() != null) {
+            imageInfoDtos = property.getImages().stream().map(i -> new ImageInfoDto(
+                    i.getId(),
+                    i.getPublicId()
+
+            )).collect(Collectors.toList());
+        }
+
         return new PropertyDto(
                 property.getId(),
                 property.getName(),
@@ -43,6 +53,7 @@ public class PropertyMapper {
                 property.getPrice(),
                 property.getUser().getId(),
                 tripInfoPropertyDtos,
+                imageInfoDtos,
                 Optional.ofNullable(property.getMeal()).map(MealMapper::mapToMealInfoDto).orElse(null),
                 Optional.ofNullable(property.getAmenity()).map(AmenityMapper::mapToAmenityInfoDto).orElse(null),
                 Optional.ofNullable(property.getFacility()).map(FacilityMapper::mapToFacilityDto).orElse(null)
