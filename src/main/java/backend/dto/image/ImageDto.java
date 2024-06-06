@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class ImageDto {
     private Long id;
-    private String publicId;
+    private String url;
     private Long propertyId;
 }

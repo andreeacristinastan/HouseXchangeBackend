@@ -1,4 +1,4 @@
-package backend.dto.image;
+package backend.dto.profileImage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ImageCreationDto {
+public class ProfileImageCreationDto {
     private String url;
-    private Long propertyId;
+    private Long userId;
 }

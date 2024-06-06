@@ -1,5 +1,6 @@
 package backend.mapper;
 
+import backend.dto.image.ImageInfoDto;
 import backend.dto.property.PropertyInfoDto;
 import backend.dto.trip.TripInfoUserDto;
 import backend.dto.user.UserCreationDto;
@@ -9,12 +10,12 @@ import backend.entity.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserMapper {
     public static UserDto mapToUserDto(User user) {
-
         return new UserDto(
                 user.getId(),
                 user.getRole(),
@@ -36,13 +37,15 @@ public class UserMapper {
                         t.getCheckInDate(),
                         t.getCheckOutDate(),
                         t.getProperty().getId()
-                )).collect(Collectors.toList())
+                )).collect(Collectors.toList()),
+                ProfileImageMapper.mapToImageDto(user.getProfileImage())
 
 
         );
     }
 
     public static UserOutputDto mapToUserOutputDto(User user) {
+
         return new UserOutputDto(
                 user.getId(),
                 user.getRole(),
@@ -66,7 +69,8 @@ public class UserMapper {
                         t.getCheckInDate(),
                         t.getCheckOutDate(),
                         t.getProperty().getId()
-                )).collect(Collectors.toList())
+                )).collect(Collectors.toList()),
+                ProfileImageMapper.mapToImageDto(user.getProfileImage())
         );
     }
 

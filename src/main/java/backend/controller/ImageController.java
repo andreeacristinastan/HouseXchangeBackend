@@ -28,7 +28,7 @@ public class ImageController {
     }
 
     //Get image REST API
-    @GetMapping("/api/images/{image_id}")
+    @GetMapping("/images/{image_id}")
     public ResponseEntity<ImageDto> getImageById(@PathVariable("image_id") Long imageId) {
         ImageDto imageDto = imageService.getImageById(imageId);
 
@@ -36,7 +36,7 @@ public class ImageController {
     }
 
     //Get All images for a property REST API
-    @GetMapping("/api/properties/{property_id}/images")
+    @GetMapping("/properties/{property_id}/images")
     public ResponseEntity<List<ImageDto>> getAllImagesByProperty(@RequestParam(defaultValue = "0") Integer page,
                                                            @RequestParam(defaultValue = "10") Integer size,
                                                            @PathVariable("property_id") Long propertyId) {
@@ -45,7 +45,7 @@ public class ImageController {
         return ResponseEntity.ok(images);
     }
 
-    @GetMapping("/api/properties/{property_id}/images/{image_id}")
+    @GetMapping("/properties/{property_id}/images/{image_id}")
     public ResponseEntity<ImageDto> getImageByProperty(@PathVariable("property_id") Long propertyId,
                                                  @PathVariable("image_id") Long imageId) {
         ImageDto imageDto = imageService.getImageByProperty(propertyId, imageId);

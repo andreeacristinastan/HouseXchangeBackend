@@ -1,6 +1,7 @@
 package backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class Property {
     private String propertyType;
 
     @NonNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 5000)
     private String propertyDescription;
 
     @NonNull

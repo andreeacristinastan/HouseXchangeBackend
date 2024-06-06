@@ -1,6 +1,5 @@
 package backend.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,8 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name="image")
-public class Image {
+@Table(name="profile_image")
+public class ProfileImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,17 +19,8 @@ public class Image {
     @Column(nullable = false)
     private String url;
 
-//    @NonNull
-//    @Column(nullable = false)
-//    private Boolean profilePicture;
-
-    @ManyToOne
-    @JoinColumn(name="property_id", nullable=false)
     @NonNull
-    private Property property;
-
-//    @NonNull
-//    @ManyToOne
-//    @JoinColumn(name="user_id", nullable=false)
-//    private User user;
+    @OneToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 }

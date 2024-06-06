@@ -34,7 +34,7 @@ public class PropertyMapper {
         if(property.getImages() != null) {
             imageInfoDtos = property.getImages().stream().map(i -> new ImageInfoDto(
                     i.getId(),
-                    i.getPublicId()
+                    i.getUrl()
 
             )).collect(Collectors.toList());
         }

@@ -29,19 +29,21 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService {
     private PropertyRepository propertyRepository;
+    private UserRepository userRepository;
     private ImageRepository imageRepository;
     private AuthUtil authUtil;
     private CheckPermissionsHelper checkPermissionsHelper;
 
     @Override
     public ImageDto createImage(ImageCreationDto imageCreationDto) {
-        Property property;
-        try {
-            property = propertyRepository.findById(imageCreationDto.getPropertyId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
-        } catch (DataAccessException exception) {
-            throw new DatabaseException("Exception occurred while accessing the database", exception);
-        }
+
+            Property property;
+            try {
+                property = propertyRepository.findById(imageCreationDto.getPropertyId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while accessing the database", exception);
+            }
 
         checkPermissionsHelper.checkAuth(property.getUser().getUsername(), authUtil);
 

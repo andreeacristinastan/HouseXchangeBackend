@@ -1,5 +1,7 @@
 package backend.dto.user;
 
+import backend.dto.image.ImageInfoDto;
+import backend.dto.profileImage.ProfileImageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +25,6 @@ public class UserOutputDto {
     private String prefixNumber;
     private List<PropertyInfoDto> properties;
     private List <TripInfoUserDto> tripInfoDto;
+    private ProfileImageDto profileImage;
 
 }
