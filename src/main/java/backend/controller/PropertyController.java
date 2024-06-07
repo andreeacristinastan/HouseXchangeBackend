@@ -28,9 +28,17 @@ public class PropertyController {
 
     //Get all properties from database REST API
     @GetMapping("/properties")
-    public ResponseEntity<Page<PropertyDto>> getAllProperties(@RequestParam(defaultValue = "0") Integer page,
+    public ResponseEntity<Page<PropertyDto>> getAllPropertiesPageable(@RequestParam(defaultValue = "0") Integer page,
                                                               @RequestParam(defaultValue = "10") Integer size) {
-        Page<PropertyDto> properties = propertyService.getAllProperties(page, size);
+        Page<PropertyDto> properties = propertyService.getAllPropertiesPageable(page, size);
+
+        return ResponseEntity.ok(properties);
+    }
+
+    @GetMapping("/properties-all")
+    public ResponseEntity<List<PropertyDto>> getAllProperties() {
+        System.out.println("here");
+        List<PropertyDto> properties = propertyService.getAllProperties();
 
         return ResponseEntity.ok(properties);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PropertyService {
     PropertyDto createProperty(Long userId, PropertyCreationDto propertyCreationDto);
-    Page<PropertyDto> getAllProperties(Integer page, Integer size);
+    Page<PropertyDto> getAllPropertiesPageable(Integer page, Integer size);
 
     PropertyDto getPropertyById(Long propertyId);
 
@@ -20,4 +20,6 @@ public interface PropertyService {
     PropertyDto updatePropertyByUserId(Long userId, Long propertyId, PropertyUpdateDto propertyUpdateDto);
 
     void deletePropertyByUser(Long userId, Long propertyId);
+
+    List<PropertyDto> getAllProperties();
 }

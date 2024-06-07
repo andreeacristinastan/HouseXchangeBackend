@@ -1,9 +1,8 @@
 package backend.service.impl;
 
+import backend.dto.user.UserOutputDto;
 import backend.entity.*;
-import backend.mapper.AmenityMapper;
-import backend.mapper.FacilityMapper;
-import backend.mapper.MealMapper;
+import backend.mapper.*;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import backend.dto.property.PropertyUpdateDto;
 import backend.exceptions.BadRequestException;
 import backend.exceptions.DatabaseException;
 import backend.exceptions.ResourceNotFoundException;
-import backend.mapper.PropertyMapper;
 import backend.repository.PropertyRepository;
 import backend.repository.UserRepository;
 import backend.security.AuthUtil;
@@ -81,7 +79,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Page<PropertyDto> getAllProperties(Integer page, Integer size) {
+    public Page<PropertyDto> getAllPropertiesPageable(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Property> propertyPage = propertyRepository.findAll(pageable);
         List<PropertyDto> properties = propertyPage.stream()
@@ -90,6 +88,8 @@ public class PropertyServiceImpl implements PropertyService {
 
         return new PageImpl<>(properties, pageable, propertyPage.getTotalElements());
     }
+
+
 
     @Override
     public PropertyDto getPropertyById(Long propertyId) {
@@ -289,6 +289,14 @@ public class PropertyServiceImpl implements PropertyService {
 
         propertyRepository.delete(property);
 
+    }
+
+    @Override
+    public List<PropertyDto> getAllProperties() {
+        List<Property> properties = propertyRepository.findAll();
+        System.out.println("get all");
+        return properties.stream().map(PropertyMapper::mapToPropertyDto)
+                .collect(Collectors.toList());
     }
 
 }
