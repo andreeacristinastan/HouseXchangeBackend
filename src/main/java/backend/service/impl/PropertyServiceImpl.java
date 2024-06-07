@@ -7,6 +7,7 @@ import backend.mapper.MealMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -80,12 +81,14 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public List<PropertyDto> getAllProperties(Integer page, Integer size) {
+    public Page<PropertyDto> getAllProperties(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Property> propertyPage = propertyRepository.findAll(pageable);
-
-        return propertyPage.stream().map(PropertyMapper::mapToPropertyDto)
+        List<PropertyDto> properties = propertyPage.stream()
+                .map(PropertyMapper::mapToPropertyDto)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(properties, pageable, propertyPage.getTotalElements());
     }
 
     @Override

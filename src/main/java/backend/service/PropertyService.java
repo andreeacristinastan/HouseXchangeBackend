@@ -3,12 +3,13 @@ package backend.service;
 import backend.dto.property.PropertyCreationDto;
 import backend.dto.property.PropertyDto;
 import backend.dto.property.PropertyUpdateDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface PropertyService {
     PropertyDto createProperty(Long userId, PropertyCreationDto propertyCreationDto);
-    List<PropertyDto> getAllProperties(Integer page, Integer size);
+    Page<PropertyDto> getAllProperties(Integer page, Integer size);
 
     PropertyDto getPropertyById(Long propertyId);
 

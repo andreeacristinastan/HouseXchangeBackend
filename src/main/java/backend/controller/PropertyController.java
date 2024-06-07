@@ -1,6 +1,7 @@
 package backend.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,9 @@ public class PropertyController {
 
     //Get all properties from database REST API
     @GetMapping("/properties")
-    public ResponseEntity<List<PropertyDto>> getAllProperties(@RequestParam(defaultValue = "0") Integer page,
+    public ResponseEntity<Page<PropertyDto>> getAllProperties(@RequestParam(defaultValue = "0") Integer page,
                                                               @RequestParam(defaultValue = "10") Integer size) {
-        List<PropertyDto> properties = propertyService.getAllProperties(page, size);
+        Page<PropertyDto> properties = propertyService.getAllProperties(page, size);
 
         return ResponseEntity.ok(properties);
     }
