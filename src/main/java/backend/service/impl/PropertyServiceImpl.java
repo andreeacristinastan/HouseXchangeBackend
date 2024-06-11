@@ -294,7 +294,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<PropertyDto> getAllProperties() {
         List<Property> properties = propertyRepository.findAll();
-        System.out.println("get all");
+//        System.out.println("get all");
         return properties.stream().map(PropertyMapper::mapToPropertyDto)
                 .collect(Collectors.toList());
     }

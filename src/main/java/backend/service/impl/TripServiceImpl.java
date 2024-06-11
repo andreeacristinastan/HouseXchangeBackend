@@ -1,10 +1,13 @@
 package backend.service.impl;
 
+import backend.dto.property.PropertyDto;
+import backend.mapper.PropertyMapper;
 import backend.utils.LoggerHelper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,7 +52,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         if(tripCreationDto.getCheckInDate().isAfter(tripCreationDto.getCheckOutDate())) {
             throw new IllegalArgumentException("Check-in date should be before check-out date");
@@ -87,12 +90,12 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(trip.getUser().getEmail(), authUtil);
+//        checkPermissionsHelper.checkAuth(trip.getUser().getEmail(), authUtil);
         return TripMapper.mapToTripDto(trip);
     }
 
     @Override
-    public List<TripDto> getAllTripsByUser(Long userId, Integer page, Integer size) {
+    public List<TripDto> getAllTripsByUser(Long userId) {
         User user;
         try {
             user = userRepository.findById(userId)
@@ -101,11 +104,11 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Trip> tripPage = tripRepository.findByUser(user, pageable);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
-        return tripPage.stream().map(TripMapper::mapToTripDto)
+        List<Trip> trips = tripRepository.findByUser(user);
+
+        return trips.stream().map(TripMapper::mapToTripDto)
                         .collect(Collectors.toList());
     }
 
@@ -119,7 +122,7 @@ public class TripServiceImpl implements TripService {
         } catch (DataAccessException exception) {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -147,7 +150,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -206,7 +209,7 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
         Trip trip;
         try {
@@ -249,6 +252,28 @@ public class TripServiceImpl implements TripService {
         } else {
             throw new BadRequestException("Cannot delete a trip that has already started");
         }
+
+    }
+
+    @Override
+    public Page<TripDto> getAllTripsByUserPageable(Long userId, Integer page, Integer size) {
+
+        User user;
+        try {
+            user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        } catch (DataAccessException exception) {
+            throw new DatabaseException("Exception occurred while accessing the database", exception);
+        }
+
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Trip> tripPage = tripRepository.findByUser(user, pageable);
+        List<TripDto> trips = tripPage.stream()
+                .map(TripMapper::mapToTripDto)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(trips, pageable, tripPage.getTotalElements());
 
     }
 }

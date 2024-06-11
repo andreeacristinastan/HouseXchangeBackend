@@ -1,6 +1,8 @@
 package backend.controller;
 
+import backend.dto.property.PropertyDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,11 +37,20 @@ public class TripController {
     }
 
     //Get All trips for a user REST API
-    @GetMapping("/api/users/{user_id}/trips")
-    public ResponseEntity<List<TripDto>> getAllTripsByUser(@RequestParam(defaultValue = "0") Integer page,
-                                                           @RequestParam(defaultValue = "10") Integer size,
+    @GetMapping("/api/users/{user_id}/trips-all")
+    public ResponseEntity<List<TripDto>> getAllTripsByUser(
                                                            @PathVariable("user_id") Long userId) {
-        List<TripDto> trips = tripService.getAllTripsByUser(userId, page, size);
+        List<TripDto> trips = tripService.getAllTripsByUser(userId);
+
+        return ResponseEntity.ok(trips);
+    }
+
+    //Get all properties from database REST API
+    @GetMapping("/api/users/{user_id}/trips")
+    public ResponseEntity<Page<TripDto>> getAllTripsByUserPageable(@RequestParam(defaultValue = "0") Integer page,
+                                                                      @RequestParam(defaultValue = "10") Integer size,
+                                                                   @PathVariable("user_id") Long userId) {
+        Page<TripDto> trips = tripService.getAllTripsByUserPageable(userId, page, size);
 
         return ResponseEntity.ok(trips);
     }
