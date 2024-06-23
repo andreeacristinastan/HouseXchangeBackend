@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -35,21 +38,16 @@ public class Trip {
 
     @NonNull
     @Column(nullable = false)
-    private LocalDate checkInDate;
+    private Date checkInDate;
 
     @NonNull
     @Column(nullable = false)
-    private LocalDate checkOutDate;
+    private Date checkOutDate;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     @NonNull
     private User user;
-
-//    @NonNull
-//    @OneToOne
-//    @JoinColumn(name="property_id", nullable=false)
-//    private Property property;
 
     @ManyToOne
     @JoinColumn(name="property_id", nullable=false)

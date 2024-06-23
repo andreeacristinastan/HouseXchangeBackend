@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173", allowPrivateNetwork = "true", allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:1099"}, allowPrivateNetwork = "true", allowedHeaders = "*")
 public class PropertyController {
         private PropertyService propertyService;
 

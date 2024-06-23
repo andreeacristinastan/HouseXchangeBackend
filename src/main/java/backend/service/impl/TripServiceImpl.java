@@ -29,6 +29,7 @@ import backend.service.TripService;
 import backend.utils.CheckPermissionsHelper;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +55,7 @@ public class TripServiceImpl implements TripService {
 
 //        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
-        if(tripCreationDto.getCheckInDate().isAfter(tripCreationDto.getCheckOutDate())) {
+        if(tripCreationDto.getCheckInDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(tripCreationDto.getCheckOutDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
             throw new IllegalArgumentException("Check-in date should be before check-out date");
         }
 
@@ -160,11 +161,11 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        if (LocalDate.now().isAfter(trip.getCheckInDate())) {
+        if (LocalDate.now().isAfter(trip.getCheckInDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
             throw new BadRequestException("Cannot update a trip that has already started");
         }
 
-        if(tripUpdateDto.getCheckInDate().isAfter(tripUpdateDto.getCheckOutDate())) {
+        if(tripUpdateDto.getCheckInDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(tripUpdateDto.getCheckOutDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
             throw new IllegalArgumentException("Check-in date should be before check-out date");
         }
 
@@ -226,7 +227,7 @@ public class TripServiceImpl implements TripService {
 
         Property property = trip.getProperty();
 
-        if (LocalDate.now().isBefore(trip.getCheckInDate())) {
+        if (LocalDate.now().isBefore(trip.getCheckInDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
 //                && user.getTrips().stream().anyMatch(currTrip -> currTrip.getId() == tripId)) {
 
             property.getTrips().stream()

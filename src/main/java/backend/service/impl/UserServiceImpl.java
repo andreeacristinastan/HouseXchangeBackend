@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
 
-        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
         if(updatedUser.getEmail().length() != 0) {
             user.setEmail(updatedUser.getEmail());
         }

@@ -63,13 +63,6 @@ public class Property {
     @NonNull
     private User user;
 
-//    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @NonNull
-//    private List<Room> rooms;
-
-//    @OneToOne(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Trip trip;
-
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trip> trips;
 
