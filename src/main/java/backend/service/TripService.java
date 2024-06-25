@@ -21,4 +21,8 @@ public interface TripService {
     void deleteTrip(Long userId, Long tripId);
 
     Page<TripDto> getAllTripsByUserPageable(Long userId, Integer page, Integer size);
+
+    List<TripDto> getAllTrips();
+
+    void deleteAllTripsByProperty(Long propertyId);
 }

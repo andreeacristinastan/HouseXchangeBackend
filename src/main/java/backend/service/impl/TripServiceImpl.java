@@ -277,4 +277,54 @@ public class TripServiceImpl implements TripService {
         return new PageImpl<>(trips, pageable, tripPage.getTotalElements());
 
     }
+
+    @Override
+    public List<TripDto> getAllTrips() {
+        List<Trip> trips = tripRepository.findAll();
+//        System.out.println("get all");
+        return trips.stream().map(TripMapper::mapToTripDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteAllTripsByProperty(Long propertyId) {
+        Property property;
+        try {
+            property = propertyRepository.findById(propertyId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+        } catch (DataAccessException exception) {
+            throw new DatabaseException("Exception occurred while accessing the database", exception);
+        }
+
+        // Fetch all trips associated with this property
+        List<Trip> trips = tripRepository.findByPropertyId(propertyId);
+
+        for (Trip trip : trips) {
+            User user = trip.getUser();
+
+            // Remove trip from user's list of trips
+            user.getTrips().remove(trip);
+            try {
+                userRepository.save(user);
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while saving the user", exception);
+            }
+
+            // Remove trip from property's list of trips
+            property.getTrips().remove(trip);
+        }
+
+        try {
+            propertyRepository.save(property);
+        } catch (DataAccessException exception) {
+            throw new DatabaseException("Exception occurred while saving the property", exception);
+        }
+
+        // Finally, delete all the trips
+        try {
+            tripRepository.deleteAll(trips);
+        } catch (DataAccessException exception) {
+            throw new DatabaseException("Exception occurred while deleting the trips", exception);
+        }
+    }
 }

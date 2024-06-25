@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findByUser(User user);
+    List<Trip> findByPropertyId(Long propertyId);
     @RestResource(path = "findByUserPageable")
     Page<Trip> findByUser(User user, Pageable pageable);
 }

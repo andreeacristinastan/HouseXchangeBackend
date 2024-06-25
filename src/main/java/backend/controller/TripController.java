@@ -55,6 +55,20 @@ public class TripController {
         return ResponseEntity.ok(trips);
     }
 
+@DeleteMapping("/api/properties/{property_id}/trips")
+    public ResponseEntity<String> deleteAllTripsByProperty(@PathVariable("property_id") Long propertyId) {
+        tripService.deleteAllTripsByProperty(propertyId);
+
+        return ResponseEntity.ok("Trips deleted successfully!");
+    }
+
+    @GetMapping("/api/trips")
+    public ResponseEntity<List<TripDto>> getAllTrips() {
+        List<TripDto> trips = tripService.getAllTrips();
+
+        return ResponseEntity.ok(trips);
+    }
+
     //Get trip for a user REST API
     @GetMapping("/api/users/{user_id}/trips/{trip_id}")
     public ResponseEntity<TripDto> getTripByUser(@PathVariable("user_id") Long userId,
