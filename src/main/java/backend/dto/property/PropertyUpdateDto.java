@@ -1,5 +1,8 @@
 package backend.dto.property;
 
+import backend.dto.amenity.AmenityCreationDto;
+import backend.dto.facility.FacilityCreationDto;
+import backend.dto.meal.MealCreationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,14 +10,11 @@ import lombok.Getter;
 @Getter
 public class PropertyUpdateDto {
     private String name;
-//    private String country;
-//    private String city;
-//    private String address;
-//    private Long zipCode;
     private String propertyDescription;
-//    private String propertyType;
     private Long numberOfBathrooms;
     private Long numberOfRooms;
     private Long price;
+    private FacilityCreationDto facilities;
+    private AmenityCreationDto amenities;
 
 }

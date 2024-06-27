@@ -130,7 +130,28 @@ public class PropertyServiceImpl implements PropertyService {
             throw new IllegalArgumentException("Property does not belong to the user");
         }
 
+
         checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
+
+        Amenity amenity = property.getAmenity();
+        amenity.setBikes(updatedProperty.getAmenities().getBikes());
+        amenity.setGarden(updatedProperty.getAmenities().getGarden());
+        amenity.setDisabilitiesFriendly(updatedProperty.getAmenities().getDisabilitiesFriendly());
+        amenity.setGym(updatedProperty.getAmenities().getGym());
+        amenity.setKidsZone(updatedProperty.getAmenities().getKidsZone());
+        amenity.setParking(updatedProperty.getAmenities().getParking());
+        amenity.setPetsFriendly(updatedProperty.getAmenities().getPetsFriendly());
+        amenity.setWifi(updatedProperty.getAmenities().getWifi());
+        amenity.setSwimmingPool(updatedProperty.getAmenities().getSwimmingPool());
+
+        property.setAmenity(amenity);
+
+        Facility facility = property.getFacility();
+        facility.setAirConditioning(updatedProperty.getFacilities().getAirConditioning());
+        facility.setBalcony(updatedProperty.getFacilities().getBalcony());
+        facility.setTowel(updatedProperty.getFacilities().getTowel());
+        facility.setTv(updatedProperty.getFacilities().getTv());
+        property.setFacility(facility);
 
 
         if(updatedProperty.getNumberOfRooms() != 0) {
@@ -158,6 +179,8 @@ public class PropertyServiceImpl implements PropertyService {
 
         try {
             updatedPropertyObj = propertyRepository.save(property);
+            facility.setProperty(updatedPropertyObj);
+            amenity.setProperty(updatedPropertyObj);
         } catch (DataAccessException exception) {
             throw new DatabaseException("Exception occurred while accessing the database", exception);
         }
