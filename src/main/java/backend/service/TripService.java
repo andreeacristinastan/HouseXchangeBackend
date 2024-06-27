@@ -25,4 +25,6 @@ public interface TripService {
     List<TripDto> getAllTrips();
 
     void deleteAllTripsByProperty(Long propertyId);
+
+    void deleteTripSingle(Long tripId);
 }

@@ -61,4 +61,11 @@ public class ImageController {
 
         return ResponseEntity.ok(images);
     }
+
+    @DeleteMapping("/properties/{property_id}/images")
+    public ResponseEntity<String> deleteAllImagesByProperty(@PathVariable("property_id") Long propertyId) {
+        imageService.deleteAllImagesByProperty(propertyId);
+
+        return ResponseEntity.ok("Images deleted successfully!");
+    }
 }

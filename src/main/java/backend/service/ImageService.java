@@ -15,4 +15,6 @@ public interface ImageService {
     ImageDto getImageByProperty(Long propertyId, Long imageId);
 
     List<ImageDto> getAllImages(Integer page, Integer size);
+
+    void deleteAllImagesByProperty(Long propertyId);
 }

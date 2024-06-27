@@ -124,4 +124,38 @@ public class ImageServiceImpl implements ImageService {
         return imagePage.stream().map(ImageMapper::mapToImageDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteAllImagesByProperty(Long propertyId) {
+            Property property;
+            try {
+                property = propertyRepository.findById(propertyId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while accessing the database", exception);
+            }
+
+            // Fetch all trips associated with this property
+            List<Image> images = imageRepository.findByPropertyId(propertyId);
+
+            for (Image image : images) {
+
+                // Remove trip from property's list of trips
+                property.getImages().remove(image);
+            }
+
+            try {
+                propertyRepository.save(property);
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while saving the property", exception);
+            }
+
+            // Finally, delete all the trips
+            try {
+                imageRepository.deleteAll(images);
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while deleting the images", exception);
+            }
+        }
+
 }

@@ -104,79 +104,6 @@ public class PropertyServiceImpl implements PropertyService {
         return PropertyMapper.mapToPropertyDto(property);
     }
 
-//    @Override
-//    public PropertyDto updateProperty(Long propertyId, PropertyUpdateDto updatedProperty) {
-//        Property property;
-//        try {
-//            property = propertyRepository.findById(propertyId).orElseThrow(
-//                    () -> new ResourceNotFoundException("Property is not exists with given id: " + propertyId)
-//            );
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//
-//        User user;
-//        try {
-//            user = userRepository.findById(property.getUser().getId())
-//                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//
-//        checkPermissionsHelper.checkAuth(user.getEmail(), authUtil);
-//        checkPermissionsHelper.checkUser(user.getRole(), authUtil);
-//
-//        property.setAddress(updatedProperty.getAddress());
-//        property.setPropertyDescription(updatedProperty.getPropertyDescription());
-//        property.setZipCode(updatedProperty.getZipCode());
-//        property.setPropertyType(updatedProperty.getPropertyType());
-//        property.setNumberOfBathrooms(updatedProperty.getNumberOfBathrooms());
-//        property.setCity(updatedProperty.getCity());
-//        property.setNumberOfRooms(updatedProperty.getNumberOfRooms());
-//        property.setName(updatedProperty.getName());
-//        property.setCountry(updatedProperty.getCountry());
-//        property.setPrice(updatedProperty.getPrice());
-//
-//        Property updatesPropertyObj;
-//
-//        try {
-//            updatesPropertyObj = propertyRepository.save(property);
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//
-//        return PropertyMapper.mapToPropertyDto(updatesPropertyObj);
-//    }
-
-//    @Override
-//    public void deleteProperty(Long propertyId) {
-//        Property property;
-//
-//        try {
-//            property = propertyRepository.findById(propertyId).orElseThrow(
-//                    () -> new ResourceNotFoundException("Property is not exists with given id: " + propertyId));
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//
-//        User user;
-//        try {
-//            user = userRepository.findById(property.getUser().getId())
-//                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//
-//        checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
-//        checkPermissionsHelper.checkUser(user.getRole(), authUtil);
-//
-//        try {
-//            propertyRepository.deleteById(propertyId);
-//        } catch (DataAccessException exception) {
-//            throw new DatabaseException("Exception occurred while accessing the database", exception);
-//        }
-//    }
-
     @Override
     public PropertyDto updatePropertyByUserId(Long userId, Long propertyId, PropertyUpdateDto updatedProperty) {
         User user;
@@ -205,17 +132,9 @@ public class PropertyServiceImpl implements PropertyService {
 
         checkPermissionsHelper.checkAuth(user.getUsername(), authUtil);
 
-        if(updatedProperty.getAddress().length() != 0) {
-            property.setAddress(updatedProperty.getAddress());
-        }
-
-        if(updatedProperty.getCity().length() != 0) {
-            property.setCity(updatedProperty.getCity());
-        }
 
         if(updatedProperty.getNumberOfRooms() != 0) {
             property.setNumberOfRooms(updatedProperty.getNumberOfRooms());
-
         }
 
         if(updatedProperty.getNumberOfBathrooms() != 0) {
@@ -227,24 +146,8 @@ public class PropertyServiceImpl implements PropertyService {
 
         }
 
-        if(updatedProperty.getPropertyType().length() != 0) {
-            property.setPropertyType(updatedProperty.getPropertyType());
-
-        }
-
-        if(updatedProperty.getCountry().length() != 0) {
-            property.setCountry(updatedProperty.getCountry());
-
-        }
-
         if(updatedProperty.getPrice() != 0) {
             property.setPrice(updatedProperty.getPrice());
-
-        }
-
-        if(updatedProperty.getZipCode() != 0) {
-            property.setZipCode(updatedProperty.getZipCode());
-
         }
 
         if(updatedProperty.getPropertyDescription().length() != 0) {

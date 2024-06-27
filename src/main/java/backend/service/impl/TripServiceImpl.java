@@ -327,4 +327,31 @@ public class TripServiceImpl implements TripService {
             throw new DatabaseException("Exception occurred while deleting the trips", exception);
         }
     }
+
+    @Override
+    public void deleteTripSingle(Long tripId) {
+        Trip trip;
+        try {
+            trip = tripRepository.findById(tripId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Trip not found"));
+        } catch (DataAccessException exception) {
+            throw new DatabaseException("Exception occurred while accessing the database", exception);
+        }
+
+
+        Property property = trip.getProperty();
+
+            property.getTrips().stream()
+                    .filter(t -> t.getId() == tripId)
+                    .findFirst()
+                    .orElseThrow(() -> new ResourceNotFoundException("Trip not found"));
+
+            property.getTrips().remove(trip);
+
+            try {
+                propertyRepository.save(property);
+            } catch (DataAccessException exception) {
+                throw new DatabaseException("Exception occurred while accessing the database", exception);
+            }
+    }
 }

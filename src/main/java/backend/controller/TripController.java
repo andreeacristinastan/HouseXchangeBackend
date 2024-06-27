@@ -96,4 +96,11 @@ public class TripController {
 
         return ResponseEntity.ok("Trip deleted successfully");
     }
+
+    @DeleteMapping("/api/trips/{trip_id}")
+    public ResponseEntity<String> deleteTripSingle(@PathVariable("trip_id") Long tripId) {
+        tripService.deleteTripSingle(tripId);
+
+        return ResponseEntity.ok("Trip deleted successfully");
+    }
 }
